@@ -308,4 +308,54 @@
       <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></span>
     </button>
     <button class="card card--gray" onclick="show('screen-reference')">
-      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2
+      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></span>
+      <span class="body"><span class="title">Reference &amp; Resources</span><span class="sub">Medical references, disaster info, links</span></span>
+      <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></span>
+    </button>
+  </main>
+
+<script>
+// Basic navigation between screens
+const screens = document.querySelectorAll('.screen');
+function show(id) {
+  screens.forEach(s => s.classList.remove('active'));
+  const target = document.getElementById(id);
+  if (target) {
+    target.classList.add('active');
+    window.scrollTo(0, 0);
+  }
+  // Update topbar
+  const topTitle = document.querySelector('.top-title');
+  const backBtn = document.querySelector('.back-btn');
+  if (id === 'screen-home') {
+    topTitle.textContent = 'Field Guide 24910';
+    backBtn.style.visibility = 'hidden';
+  } else {
+    topTitle.textContent = target.querySelector('h1, h2')?.textContent || 'Guide';
+    backBtn.style.visibility = 'visible';
+  }
+}
+// Back button
+document.querySelector('.back-btn').addEventListener('click', () => show('screen-home'));
+
+// Clock
+function updateClock() {
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2, '0');
+  const m = String(now.getMinutes()).padStart(2, '0');
+  document.querySelector('.clock').textContent = h + ':' + m;
+}
+updateClock();
+setInterval(updateClock, 10000);
+
+// Initialize
+show('screen-home');
+</script>
+
+<!-- Vercel Web Analytics -->
+<script type="module">
+  import { inject } from 'https://cdn.jsdelivr.net/npm/@vercel/analytics@2.0.1/dist/index.mjs';
+  inject({ mode: 'production' });
+</script>
+</body>
+</html>
